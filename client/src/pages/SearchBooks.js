@@ -106,7 +106,7 @@ const SearchBooks = () => {
       </div>
 
       <Container>
-        <h2>
+        <h2 className="my-3">
           {searchedBooks.length
             ? `Viewing ${searchedBooks.length} results:`
             : 'Search for a book to begin'}
