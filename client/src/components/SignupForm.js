@@ -46,11 +46,11 @@ const SignupForm = () => {
       setShowAlert(true);
     }
 
-    // setUserFormData({
-    //   username: '',
-    //   email: '',
-    //   password: '',
-    // });
+    setUserFormData({
+      username: '',
+      email: '',
+      password: '',
+    });
   };
 
   return (
