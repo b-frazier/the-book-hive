@@ -1,8 +1,10 @@
 const { User } = require('../models');
+const { signToken } = require('../utils/auth');
 
 const resolvers = {
   Query: {
-    me: async (p, args, context) => {
+    // used to have context
+    me: async (p, args) => {
       if (context.user) {
         const userData = await User.findOne({ _id: context.user._id }).select(
           '-__v -password'
@@ -13,13 +15,15 @@ const resolvers = {
     },
   },
   Mutation: {
-    addUser: async (p, { body }) => {
-      return await User.create(body);
+    addUser: async (p, body) => {
+      console.log({ body });
+      const user = await User.create(body);
+      const token = signToken(user);
+
+      return { token, user };
     },
-    login: async (p, { body }) => {
-      const user = await User.findOne({
-        $or: [{ username: body.username }, { email: body.email }],
-      });
+    login: async (p, { email, password }) => {
+      const user = await User.findOne({ email });
 
       if (!user) {
         throw new AuthenticationError('No user found');
@@ -35,7 +39,8 @@ const resolvers = {
 
       return { token, user };
     },
-    saveBook: async (p, { newBook }, context) => {
+    // used to have context
+    saveBook: async (p, { newBook }) => {
       if (context.user) {
         const updatedUser = await User.findByIdAndUpdate(
           { _id: context.user._id },
@@ -46,7 +51,8 @@ const resolvers = {
       }
       throw new AuthenticationError('You need to be logged in!');
     },
-    removeBook: async (p, { bookId }, context) => {
+    // used to have context
+    removeBook: async (p, { bookId }) => {
       if (context.user) {
         const updatedUser = await User.findByIdAndUpdate(
           { _id: context.user._id },
