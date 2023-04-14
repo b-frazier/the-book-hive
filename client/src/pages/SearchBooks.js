@@ -35,12 +35,6 @@ const SearchBooks = () => {
         `https://www.googleapis.com/books/v1/volumes?q=${searchInput}`
       );
 
-      //searchGoogleBooks(searchInput);
-
-      if (!response.ok) {
-        throw new Error('something went wrong!');
-      }
-
       const { items } = await response.json();
 
       const bookData = items.map((book) => ({
@@ -88,11 +82,11 @@ const SearchBooks = () => {
 
   return (
     <>
-      <div fluid="true" className="text-light bg-dark pt-5">
+      <div fluid="true" className="text-light bg-dark pt-5 py-3">
         <Container>
           <h1>Search for Books!</h1>
           <Form onSubmit={handleFormSubmit}>
-            <Col xs={12} md={8}>
+            <Col xs={12} md={8} className="py-2">
               <Form.Control
                 name="searchInput"
                 value={searchInput}
@@ -120,8 +114,8 @@ const SearchBooks = () => {
         <Row>
           {searchedBooks.map((book) => {
             return (
-              <Col md="4">
-                <Card key={book.bookId} border="dark">
+              <Col key={book.bookId} md="4">
+                <Card border="dark">
                   {book.image ? (
                     <Card.Img
                       src={book.image}
