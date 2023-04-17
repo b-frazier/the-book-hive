@@ -95,7 +95,7 @@ const SearchBooks = () => {
               />
             </Col>
             <Col xs={12} md={4}>
-              <Button type="submit" variant="success" size="lg">
+              <Button type="submit" className="btn-dark" size="lg">
                 Submit Search
               </Button>
             </Col>
@@ -130,7 +130,7 @@ const SearchBooks = () => {
                         disabled={savedBookIds?.some(
                           (savedBookId) => savedBookId === book.bookId
                         )}
-                        className="btn-block btn-info"
+                        className="btn-block btn-dark"
                         onClick={() => handleSaveBook(book.bookId)}
                       >
                         {savedBookIds?.some(
