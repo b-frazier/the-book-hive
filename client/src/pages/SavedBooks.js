@@ -35,16 +35,16 @@ const SavedBooks = () => {
 
   return (
     <>
-      <div fluid="true" className="p-5">
+      {/* <div fluid="true" className="p-5">
         <Container>
           <h1 className="display-6">Viewing saved books!</h1>
         </Container>
-      </div>
+      </div> */}
       <Container>
         {/* this code was breaking the build (probably because of auth issues) */}
-        <h2 className="pt-5">
+        <h2 className="display-6 pt-5">
           {userData.savedBooks.length
-            ? `Viewing ${userData.savedBooks.length} saved ${
+            ? `viewing ${userData.savedBooks.length} saved ${
                 userData.savedBooks.length === 1 ? 'book' : 'books'
               }:`
             : 'You have no saved books!'}
@@ -52,8 +52,8 @@ const SavedBooks = () => {
         <Row>
           {userData.savedBooks.map((book) => {
             return (
-              <Col md="4">
-                <Card key={book.bookId} border="dark">
+              <Col key={book.bookId} md="4">
+                <Card border="dark">
                   {book.image ? (
                     <Card.Img
                       src={book.image}
