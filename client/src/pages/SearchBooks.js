@@ -69,12 +69,10 @@ const SearchBooks = () => {
         variables: { bookData: { ...bookToSave } },
       });
 
-      if (!response.ok) {
-        throw new Error('something went wrong!');
-      }
-
       // if book successfully saves to user's account, save book id to state
-      setSavedBookIds([...savedBookIds, bookToSave.bookId]);
+      if (response) {
+        setSavedBookIds([...savedBookIds, bookToSave.bookId]);
+      }
     } catch (err) {
       console.error(err);
     }
@@ -82,7 +80,7 @@ const SearchBooks = () => {
 
   return (
     <>
-      <div fluid="true" className="text-light bg-dark pt-5 py-3">
+      <div fluid="true" className="pt-5 py-3">
         <Container>
           <h1>Search for Books!</h1>
           <Form onSubmit={handleFormSubmit}>
@@ -109,7 +107,7 @@ const SearchBooks = () => {
         <h2 className="my-3">
           {searchedBooks.length
             ? `Viewing ${searchedBooks.length} results:`
-            : 'Search for a book to begin'}
+            : ''}
         </h2>
         <Row>
           {searchedBooks.map((book) => {
