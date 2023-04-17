@@ -52,7 +52,7 @@ const SavedBooks = () => {
         <Row>
           {userData.savedBooks.map((book) => {
             return (
-              <Col key={book.bookId} md="4">
+              <Col key={book.bookId} md="2">
                 <Card border="dark">
                   {book.image ? (
                     <Card.Img
@@ -64,7 +64,7 @@ const SavedBooks = () => {
                   <Card.Body>
                     <Card.Title>{book.title}</Card.Title>
                     <p className="small">Authors: {book.authors}</p>
-                    <Card.Text>{book.description}</Card.Text>
+                    {/* <Card.Text>{book.description}</Card.Text> */}
                     <Button
                       className="btn-block btn-danger"
                       onClick={() => handleDeleteBook(book.bookId)}
