@@ -35,20 +35,20 @@ const SavedBooks = () => {
 
   return (
     <>
-      <div fluid className="text-light bg-dark p-5">
+      <div fluid="true" className="p-5">
         <Container>
-          <h1>Viewing saved books!</h1>
+          <h1 className="display-6">Viewing saved books!</h1>
         </Container>
       </div>
       <Container>
-        <h2 className="pt-5">
+        {/* <h2 className="pt-5">
           {userData.savedBooks.length
             ? `Viewing ${userData.savedBooks.length} saved ${
                 userData.savedBooks.length === 1 ? 'book' : 'books'
               }:`
             : 'You have no saved books!'}
-        </h2>
-        <Row>
+        </h2> */}
+        {/* <Row>
           {userData.savedBooks.map((book) => {
             return (
               <Col md="4">
@@ -75,7 +75,7 @@ const SavedBooks = () => {
               </Col>
             );
           })}
-        </Row>
+        </Row> */}
       </Container>
     </>
   );
