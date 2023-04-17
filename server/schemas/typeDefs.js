@@ -24,7 +24,6 @@ const typeDefs = gql`
     title: String!
     description: String!
     image: String
-    link: String
   }
 
   type Auth {
@@ -33,7 +32,7 @@ const typeDefs = gql`
   }
 
   type Query {
-    me: [User]
+    me: User
   }
 
   type Mutation {

@@ -35,12 +35,6 @@ const SearchBooks = () => {
         `https://www.googleapis.com/books/v1/volumes?q=${searchInput}`
       );
 
-      //searchGoogleBooks(searchInput);
-
-      if (!response.ok) {
-        throw new Error('something went wrong!');
-      }
-
       const { items } = await response.json();
 
       const bookData = items.map((book) => ({
@@ -71,16 +65,13 @@ const SearchBooks = () => {
     }
 
     try {
-      const { response } = await saveBook({
-        variables: { bookData: { ...bookToSave } },
+      const { data } = await saveBook({
+        variables: { newBook: { ...bookToSave } },
       });
-
-      if (!response.ok) {
-        throw new Error('something went wrong!');
-      }
-
       // if book successfully saves to user's account, save book id to state
-      setSavedBookIds([...savedBookIds, bookToSave.bookId]);
+      if (data) {
+        setSavedBookIds([...savedBookIds, bookToSave.bookId]);
+      }
     } catch (err) {
       console.error(err);
     }
@@ -88,11 +79,11 @@ const SearchBooks = () => {
 
   return (
     <>
-      <div fluid="true" className="text-light bg-dark pt-5">
+      <div fluid="true" className="pt-5 py-3">
         <Container>
           <h1>Search for Books!</h1>
           <Form onSubmit={handleFormSubmit}>
-            <Col xs={12} md={8}>
+            <Col xs={12} md={8} className="py-2">
               <Form.Control
                 name="searchInput"
                 value={searchInput}
@@ -103,7 +94,7 @@ const SearchBooks = () => {
               />
             </Col>
             <Col xs={12} md={4}>
-              <Button type="submit" variant="success" size="lg">
+              <Button type="submit" className="btn-dark" size="lg">
                 Submit Search
               </Button>
             </Col>
@@ -112,16 +103,16 @@ const SearchBooks = () => {
       </div>
 
       <Container>
-        <h2>
+        <h2 className="my-3">
           {searchedBooks.length
             ? `Viewing ${searchedBooks.length} results:`
-            : 'Search for a book to begin'}
+            : ''}
         </h2>
         <Row>
           {searchedBooks.map((book) => {
             return (
-              <Col md="4">
-                <Card key={book.bookId} border="dark">
+              <Col key={book.bookId} md="2">
+                <Card border="dark">
                   {book.image ? (
                     <Card.Img
                       src={book.image}
@@ -132,13 +123,13 @@ const SearchBooks = () => {
                   <Card.Body>
                     <Card.Title>{book.title}</Card.Title>
                     <p className="small">Authors: {book.authors}</p>
-                    <Card.Text>{book.description}</Card.Text>
+                    {/* <Card.Text>{book.description}</Card.Text> */}
                     {Auth.loggedIn() && (
                       <Button
                         disabled={savedBookIds?.some(
                           (savedBookId) => savedBookId === book.bookId
                         )}
-                        className="btn-block btn-info"
+                        className="btn-block btn-dark"
                         onClick={() => handleSaveBook(book.bookId)}
                       >
                         {savedBookIds?.some(
